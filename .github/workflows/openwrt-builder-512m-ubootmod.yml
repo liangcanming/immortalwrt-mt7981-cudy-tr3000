@@ -10,7 +10,7 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder 128M Ubootmod
+name: OpenWrt Builder 512M Ubootmod
 
 on:
   repository_dispatch:
@@ -214,7 +214,7 @@ jobs:
         id: tag
         if: env.UPLOAD_RELEASE == 'true' && !cancelled()
         run: |
-          FIRMWARE_NAME="128M Ubootmod"
+          FIRMWARE_NAME="512M Ubootmod"
           BUILD_TIME=$(date +"%Y%m%d-%H%M")
           RELEASE_TAG="${FIRMWARE_NAME// /_}-${BUILD_TIME}"
           echo "release_tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
@@ -266,6 +266,6 @@ jobs:
         with:
           keep_latest: 3
           delete_tags: true
-          delete_tag_pattern: "^128M_Ubootmod-.*$"
+          delete_tag_pattern: "^512M_Ubootmod-.*$"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
