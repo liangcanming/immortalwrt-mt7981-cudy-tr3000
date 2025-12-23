@@ -16,12 +16,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
-  push:
-    branches: [main, master]
-    paths:
-      - 'target/linux/mediatek/dts/mt7981b-cudy-tr3000-v1-512mb.dts'
-      - '.github/workflows/**'
-
 # 防止多个构建同时运行
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -90,13 +84,13 @@ jobs:
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P1_SH
           # 创建必要的目录结构
-          mkdir -p openwrt/target/linux/mediatek/dts/
+          sudo mkdir -p /workdir/openwrt/target/linux/mediatek/dts/
           # 复制DTS文件
-          cp custom/target/linux/mediatek/dts/mt7981b-cudy-tr3000-v1-512mb.dts openwrt/target/linux/mediatek/dts/
+          cp target/linux/mediatek/dts/mt7981b-cudy-tr3000-v1-512mb.dts /workdir/openwrt/target/linux/mediatek/dts/
           echo "DTS文件已复制"
         # yamllint enable rule:line-length
 
-      - name: Update filogic.mk with 512MB device definition
+      - name: ⚙️Update filogic.mk with 512MB device definition
         run: |
           cd openwrt
           # 在filogic.mk中追加512MB设备定义
