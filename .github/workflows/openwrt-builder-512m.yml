@@ -83,37 +83,7 @@ jobs:
           chmod +x $DIY_P1_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P1_SH
-          # 创建必要的目录结构
-          sudo mkdir -p /workdir/openwrt/target/linux/mediatek/dts/
-          # 复制DTS文件
-          cp target/linux/mediatek/dts/mt7981b-cudy-tr3000-v1-512mb.dts /workdir/openwrt/target/linux/mediatek/dts/
-          echo "DTS文件已复制"
-        # yamllint enable rule:line-length
-
-      - name: ⚙️Update filogic.mk with 512MB device definition
-        run: |
-          cd openwrt
-          # 在filogic.mk中追加512MB设备定义
-          cat >> target/linux/mediatek/image/filogic.mk << 'EOF'
-
-          # cudy tr3000 v1 (512MB Flash version)
-          define Device/cudy_tr3000-v1-512mb
-              DEVICE_VENDOR := Cudy
-              DEVICE_MODEL := TR3000
-              DEVICE_VARIANT := v1 512mb
-              DEVICE_DTS := mt7981b-cudy-tr3000-v1-512mb
-              DEVICE_DTS_DIR := ../dts
-              SUPPORTED_DEVICES += R103
-              UBINIZE_OPTS := -E 5
-              PAGESIZE := 2048
-              IMAGE_SIZE := 501760k
-              KERNEL_IN_UBI := 1
-              IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
-              DEVICE_PACKAGES := kmod-usb3 kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware automount
-            endef
-            TARGET_DEVICES += cudy_tr3000-v1-512mb
-          EOF
-
+ 
       - name: 🧬 Update feeds
         run: cd openwrt && ./scripts/feeds update -a
 
